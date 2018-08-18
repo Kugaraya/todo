@@ -22,7 +22,6 @@ export class MainDashboardComponent {
 
   doCheck(item : string) {
     let tmp = this.todoList.indexOf(item);
-    console.log(tmp);
     this.doneList[this.doneList.length] = this.todoList[tmp];
     this.todoList.splice(tmp, 1);
   }
