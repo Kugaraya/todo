@@ -19,6 +19,7 @@ import { NavigationService } from './services/utilities/navigation/navigation.se
 import { CoreModule } from './core/core.module';
 import { RouteReuseStrategy } from '@angular/router';
 import { CoreRouteReuseStrategy } from './core/route-strategy/core-route-reuse-strategy';
+import { FormsModule, ReactiveFormsModule } from '../../node_modules/@angular/forms';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,8 @@ import { CoreRouteReuseStrategy } from './core/route-strategy/core-route-reuse-s
         ContentLayoutComponent
     ],
     imports: [
+        FormsModule,
+        ReactiveFormsModule,
         BrowserAnimationsModule,
         AppRoutingModule,
         BrowserModule,

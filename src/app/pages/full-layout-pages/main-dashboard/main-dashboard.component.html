@@ -1,60 +1,56 @@
 <div class="row">
 	<div class="col-12">
-		<div class="col-lg-4 col-md-6 col-sm-12">
-			<div class="card" style="height: 100%;">
-				<div class="card-body">
-					<div class="card-block">
-						<h4 class="card-title">To Do</h4>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					</div>
-					<ul class="list-group">
-						<li class="list-group-item">
-							<span class="badge bg-primary float-right">7</span> Cras justo odio
-						</li>
-					</ul>
-					<div class="card-block">
-						<a class="card-link success">Card link</a>
-						<a class="card-link success">Another link</a>
-					</div>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<input [(ngModel)]="inputTodo" name="inputTodo" class="form-control float-left" type="text">
+				<button class="btn btn-raised gradient-mint white float-right" name="add" (click)="toAdd(inputTodo)">Add</button>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col-12">
+		<div class="card" style="height: 100%;">
+			<div class="card-body">
+				<div class="card-block">
+					<h4 class="card-title">To Do</h4>
 				</div>
+				<ul class="list-group">
+					<li *ngFor="let todo of todoList" class="list-group-item">
+						<button (click)="doCheck(todo)" class="btn btn-flat btn-small bg-primary white float-right"><i class="fa fa-check"></i></button> 
+						<button (click)="doRemove(todo)" class="btn btn-flat btn-small bg-secondary white float-right"><i class="fa fa-close"></i></button> 
+						{{ todo }}
+					</li>
+				</ul>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-6 col-sm-12">
-			<div class="card" style="height: 100%;">
-				<div class="card-body">
-					<div class="card-block">
-						<h4 class="card-title">Done</h4>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					</div>
-					<ul class="list-group">
-						<li class="list-group-item">
-							<span class="badge bg-primary float-right">7</span> Cras justo odio
-						</li>
-					</ul>
-					<div class="card-block">
-						<a class="card-link success">Card link</a>
-						<a class="card-link success">Another link</a>
-					</div>
+	</div>
+	<div class="col-12">
+		<div class="card" style="height: 100%;">
+			<div class="card-body">
+				<div class="card-block">
+					<h4 class="card-title">Done</h4>
 				</div>
+				<ul class="list-group">
+					<li *ngFor="let done of doneList" class="list-group-item">
+							<button (click)="undoCheck(done)" class="btn btn-flat btn-small bg-primary white float-right"><i class="fa fa-upload"></i></button> 
+						{{ done }}
+					</li>
+				</ul>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-6 col-sm-12">
-			<div class="card" style="height: 100%;">
-				<div class="card-body">
-					<div class="card-block">
-						<h4 class="card-title">Archive</h4>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					</div>
-					<ul class="list-group">
-						<li class="list-group-item">
-							<span class="badge bg-primary float-right">7</span> Cras justo odio
-						</li>
-					</ul>
-					<div class="card-block">
-						<a class="card-link success">Card link</a>
-						<a class="card-link success">Another link</a>
-					</div>
+	</div>
+	<div class="col-12">
+		<div class="card" style="height: 100%;">
+			<div class="card-body">
+				<div class="card-block">
+					<h4 class="card-title">Archive</h4>
 				</div>
+				<ul class="list-group">
+					<li *ngFor="let archive of archiveList" class="list-group-item">
+						{{ archive }}
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>

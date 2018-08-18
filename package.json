@@ -33,7 +33,7 @@
     "core-js": "^2.5.0",
     "firebase": "^4.10.1",
     "intl": "^1.2.5",
-    "jquery": "^3.2.1",
+    "jquery": "^3.3.1",
     "ng2-toastr": "^4.1.2",
     "node-sass": "^4.5.3",
     "resize-observer-polyfill": "^1.4.2",
