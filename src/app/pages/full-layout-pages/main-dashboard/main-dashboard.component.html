@@ -3,7 +3,7 @@
 		<ul class="list-group">
 			<li class="list-group-item">
 				<input [(ngModel)]="inputTodo" name="inputTodo" class="form-control float-left" type="text">
-				<button class="btn btn-raised gradient-mint white float-right" name="add" (click)="toAdd(inputTodo)">Add</button>
+				<button class="btn btn-raised gradient-mint white float-right" name="add" (click)="toAdd()">Add</button>
 			</li>
 		</ul>
 	</div>
@@ -16,10 +16,10 @@
 					<h4 class="card-title">To Do</h4>
 				</div>
 				<ul class="list-group">
-					<li *ngFor="let todo of todoList" class="list-group-item">
+					<li *ngFor="let todo of todoItemsForListing" class="list-group-item">
 						<button (click)="doCheck(todo)" class="btn btn-flat btn-small bg-primary white float-right"><i class="fa fa-check"></i></button> 
 						<button (click)="doRemove(todo)" class="btn btn-flat btn-small bg-secondary white float-right"><i class="fa fa-close"></i></button> 
-						{{ todo }}
+						{{ todo.todoText }}
 					</li>
 				</ul>
 			</div>
@@ -34,7 +34,7 @@
 				<ul class="list-group">
 					<li *ngFor="let done of doneList" class="list-group-item">
 							<button (click)="undoCheck(done)" class="btn btn-flat btn-small bg-primary white float-right"><i class="fa fa-upload"></i></button> 
-						{{ done }}
+						{{ done.todoText }}
 					</li>
 				</ul>
 			</div>
@@ -48,7 +48,7 @@
 				</div>
 				<ul class="list-group">
 					<li *ngFor="let archive of archiveList" class="list-group-item">
-						{{ archive }}
+						{{ archive.todoText }}
 					</li>
 				</ul>
 			</div>

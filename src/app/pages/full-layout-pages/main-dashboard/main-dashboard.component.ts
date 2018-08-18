@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoItem } from '../../../models/todo-item';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -6,63 +7,64 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-dashboard.component.scss']
 })
 export class MainDashboardComponent implements OnInit {
+  todoItems: TodoItem[];
   todoList : string[];
-  doneList : string[];
-  archiveList : string[];
+  // doneList : string[];
+  // archiveList : string[];
   index : number;
   inputTodo : string;
 
   TODO_LIST_STORAGE_KEY = "todoList";
   DONE_LIST_STORAGE_KEY = "doneList";
   ARCHIVE_LIST_STORAGE_KEY = "archiveList";
+  TODO_ITEMS_STORAGE_KEY = "todoItems";
 
   constructor() {
     
   }
 
+  get todoItemsForListing(): TodoItem[] {
+    return this.todoItems.filter(todo => !todo.isDone && !todo.isArchived);
+  }
+
+  get doneList(): TodoItem[] {
+    return this.todoItems.filter(todo => todo.isDone && !todo.isArchived);
+  } 
+
+  get archiveList(): TodoItem[] {
+    return this.todoItems.filter(todo => todo.isArchived);
+  }
+
   ngOnInit() {
-    this.todoList = [];
-    this.doneList = [];
-    this.archiveList = [];
     this.inputTodo = "";
     this.index = 0;
 
-    this.todoList = JSON.parse(localStorage.getItem(this.TODO_LIST_STORAGE_KEY)) || [];
-    this.doneList = JSON.parse(localStorage.getItem(this.DONE_LIST_STORAGE_KEY))|| [];
-    this.archiveList = JSON.parse(localStorage.getItem(this.ARCHIVE_LIST_STORAGE_KEY)) || [];
+    this.todoItems = JSON.parse(localStorage.getItem(this.TODO_ITEMS_STORAGE_KEY)) || [];
   }
 
-  doCheck(item : string) {
-    let tmp = this.todoList.indexOf(item);
-    this.doneList[this.doneList.length] = this.todoList[tmp];
-    this.todoList.splice(tmp, 1);
+  doCheck(todoItem : TodoItem) {
+    todoItem.isDone = true;
 
-    localStorage.setItem(this.TODO_LIST_STORAGE_KEY, JSON.stringify(this.todoList));
-    localStorage.setItem(this.DONE_LIST_STORAGE_KEY, JSON.stringify(this.doneList));
+    localStorage.setItem(this.TODO_ITEMS_STORAGE_KEY, JSON.stringify(this.todoItems));
   }
 
-  doRemove(item : string) {
-    let tmp = this.todoList.indexOf(item);
-    this.archiveList[this.archiveList.length] = this.todoList[tmp];
-    this.todoList.splice(tmp, 1);
+  doRemove(todoItem : TodoItem) {
+    todoItem.isArchived = true;
 
-    localStorage.setItem(this.TODO_LIST_STORAGE_KEY, JSON.stringify(this.todoList));
-    localStorage.setItem(this.ARCHIVE_LIST_STORAGE_KEY, JSON.stringify(this.archiveList));
+    localStorage.setItem(this.TODO_ITEMS_STORAGE_KEY, JSON.stringify(this.todoItems));
   }
 
-  undoCheck(item : string) {
-    let tmp = this.doneList.indexOf(item);
-    this.todoList[this.todoList.length] = this.doneList[tmp];
-    this.doneList.splice(tmp, 1);
+  undoCheck(todoItem : TodoItem) {
+    todoItem.isDone = false;
 
-    localStorage.setItem(this.TODO_LIST_STORAGE_KEY, JSON.stringify(this.todoList));
-    localStorage.setItem(this.DONE_LIST_STORAGE_KEY, JSON.stringify(this.doneList));
+    localStorage.setItem(this.TODO_ITEMS_STORAGE_KEY, JSON.stringify(this.todoItems));
   }
 
-  toAdd(input : string) {
-    this.todoList[this.todoList.length] = input;
+  toAdd() {
+    let newTodoItem = new TodoItem(this.inputTodo);
+    this.todoItems.push(newTodoItem);
     this.inputTodo = "";
 
-    localStorage.setItem(this.TODO_LIST_STORAGE_KEY, JSON.stringify(this.todoList));
+    localStorage.setItem(this.TODO_ITEMS_STORAGE_KEY, JSON.stringify(this.todoItems));
   }
 }
